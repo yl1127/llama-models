@@ -100,7 +100,7 @@ llama download --source meta --model-id Llama3.1-8B-Instruct
 # Provide the signed URL you received via email
 ```
 
-![Download](figures/Screenshot_download.png)
+<!-- ![Download](figures/Screenshot_download.png) -->
 
 ![pip](figures/Screenshot_pip.png)
 
@@ -172,7 +172,7 @@ chmod +x ./run_example.sh
 ```
 
 
-![running](figures/Screenshot_running.png)
+<!-- ![running](figures/Screenshot_running.png) -->
 
 ![example1](figures/Screenshot_example1.png)
 
