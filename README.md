@@ -81,7 +81,7 @@ https://ai.meta.com/research/publications/the-llama-3-herd-of-models/
 ## 3. Download the Llama Model
 
 
-- Follow the download instruction: https://github.com/meta-llama/llama-models
+- Follow the download instruction: https://github.com/yl1127/llama-models?tab=readme-ov-file#download
 - Remember your download path. Example '/users/ylpan/.llama/checkpoints/Llama3.1-8B-Instruct'
 
 ```bash
@@ -100,13 +100,13 @@ llama download --source meta --model-id Llama3.1-8B-Instruct
 # Provide the signed URL you received via email
 ```
 
-![Download](Screenshot_download.png)
+![Download](figures/Screenshot_download.png)
 
-![pip](Screenshot_pip.png)
+![pip](figures/Screenshot_pip.png)
 
-![modellist](Screenshot_modellist.png)
+![modellist](figures/Screenshot_modellist.png)
 
-![done](Screenshot_done.png)
+![done](figures/Screenshot_done.png)
 
 ## 4. Install GPU Driver
 
@@ -132,20 +132,20 @@ nvidia-smi
 # For Q4, take a screenshot
 ```
 
-![hardware](Screenshot_hardware.png)
+![hardware](figures/Screenshot_hardware.png)
 
-![usage](Screenshot_usage.png)
+![usage](figures/Screenshot_usage.png)
 
 ## 5. Run Llama Model
 
 - Obtain the scripts from Llama github
-- Follow the **Running the models** section https://github.com/meta-llama/llama-models
+- Follow the **Running the models** section https://github.com/yl1127/llama-models?tab=readme-ov-file#running-the-models
 - Prepare python environment
 - Run an example
 - Three conversations from example scripts will show up if you run the example successfully.
 
 ```bash
-git clone https://github.com/meta-llama/llama-models.git
+git clone https://github.com/yl1127/llama-models.git
 
 cd llama-models/
 
@@ -159,7 +159,7 @@ nano run_example.sh
 ```bash
 #!/bin/bash
 
-CHECKPOINT_DIR=~/.llama/checkpoints/Meta-Llama3.1-8B-Instruct
+CHECKPOINT_DIR=~/.llama/checkpoints/Llama3.1-8B-Instruct
 PYTHONPATH=$(git rev-parse --show-toplevel) torchrun models/scripts/example_chat_completion.py $CHECKPOINT_DIR
 ```
 
@@ -172,13 +172,13 @@ chmod +x ./run_example.sh
 ```
 
 
-![running](Screenshot_running.png)
+![running](figures/Screenshot_running.png)
 
-![example1](Screenshot_example1.png)
+![example1](figures/Screenshot_example1.png)
 
-![example2](Screenshot_example2.png)
+![example2](figures/Screenshot_example2.png)
 
-![example3](Screenshot_example3.png)
+![example3](figures/Screenshot_example3.png)
 
 ## 6. Explore
 
@@ -246,7 +246,7 @@ print(model["layers.0.feed_forward.w2.weight"].shape)
 # For Q10, print the shape for attention W_o of layer 21.
 ```
 
-![explore](Screenshot_explore1.png)
+![explore](figures/Screenshot_explore1.png)
 ---
 
 # Llama Models
@@ -298,7 +298,7 @@ After installing the dependencies, you can run the example scripts (within `mode
 ```bash
 #!/bin/bash
 
-CHECKPOINT_DIR=~/.llama/checkpoints/Meta-Llama3.1-8B-Instruct
+CHECKPOINT_DIR=~/.llama/checkpoints/Llama3.1-8B-Instruct
 PYTHONPATH=$(git rev-parse --show-toplevel) torchrun models/scripts/example_chat_completion.py $CHECKPOINT_DIR
 ```
 
