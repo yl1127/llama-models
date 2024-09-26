@@ -43,3 +43,5 @@ print(json.dumps(list(model.keys())[:20], indent=4))
 print('This is the shape for feed forward weight W_2 of layer 0, ')
 print(model["layers.0.feed_forward.w2.weight"].shape)
 # For Q10, print the shape for attention W_o of layer 21.
+
+print('Note: Please update this file to complete your responses for questions 6 through 10.')
