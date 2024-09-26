@@ -43,7 +43,6 @@ https://ai.meta.com/research/publications/the-llama-3-herd-of-models/
   - [4. Install GPU Driver](#4-install-gpu-driver)
   - [5. Run Llama Model](#5-run-llama-model)
   - [6. Explore](#6-explore)
-  - [](#)
 - [Llama Models](#llama-models)
   - [Llama Models](#llama-models-1)
   - [Download](#download)
@@ -247,6 +246,7 @@ print(model["layers.0.feed_forward.w2.weight"].shape)
 ```
 
 ![explore](figures/Screenshot_explore1.png)
+
 ---
 
 # Llama Models
