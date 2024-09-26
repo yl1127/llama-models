@@ -72,7 +72,7 @@ https://ai.meta.com/research/publications/the-llama-3-herd-of-models/
 - You will get an email when you finish your request.
 
 
-![Llama](figures/Screenshot_Llama.png)
+![Llama](figures/Screenshot_llama.png)
 
 ![request](figures/Screenshot_request.png)
 
