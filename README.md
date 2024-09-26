@@ -1,11 +1,252 @@
-<p align="center">
-  <img src="/Llama_Repo.jpeg" width="400"/>
-</p>
+# Assignment 2: Instruction
 
-<p align="center">
-        🤗 <a href="https://huggingface.co/meta-Llama"> Models on Hugging Face</a>&nbsp | <a href="https://ai.meta.com/blog/"> Blog</a>&nbsp |  <a href="https://llama.meta.com/">Website</a>&nbsp | <a href="https://llama.meta.com/get-started/">Get Started</a>&nbsp
-<br>
+**AMS560 - Fall 2024**  
+**Professor:** Zhenhua Liu  
+**Teaching Assistants:** Yunlong Pan & Xander Barron
 
+
+## Requirements (100 points)
+
+### Section 1: Download and run (75 points)
+
+1. (15 points) Do you successfully set up a Cloudlab with GPU? (Yes or No and a screenshot)
+2. (15 points) Do you successfully print the model list? (Yes or No and a screenshot)
+3. (15 points) Do you successfully download the **Llama3.1-8B-Instruct** model? Where you download it? (Yes or No and a screenshot)
+4. (15 points) Do you successfully install GPU driver? Show your GPU usage. (Yes or No and a screenshot)
+5. (15 points) Do you successfully run the **example_chat_completion.py**? (Yes or No and three screenshots)
+
+### Section 2: Explore (25 points)
+
+1. (5 points) How many files in **/Llama3.1-8B-Instruct**? What are they?
+2. (5 points) How many heads of each multi-head attention block?
+3. (5 points) What's the tokenizer encode output of "hello world!"?
+4. (5 points) How many transformer layers of this model?
+5.  (5 points) What's the shape of Attention weight $W_o$ of layer 21?
+
+### Section 3: External reading (Not required)
+
+The Llama 3 Herd of Models
+
+https://ai.meta.com/research/publications/the-llama-3-herd-of-models/
+
+## Outline
+
+- [Assignment 2: Instruction](#assignment-2-instruction)
+  - [Requirements (100 points)](#requirements-100-points)
+    - [Section 1: Download and run (75 points)](#section-1-download-and-run-75-points)
+    - [Section 2: Explore (25 points)](#section-2-explore-25-points)
+    - [Section 3: External reading (Not required)](#section-3-external-reading-not-required)
+  - [Outline](#outline)
+  - [1. Set up Cloudlab](#1-set-up-cloudlab)
+  - [2. Request Access to Llama Models](#2-request-access-to-llama-models)
+  - [3. Download the Llama Model](#3-download-the-llama-model)
+  - [4. Install GPU Driver](#4-install-gpu-driver)
+  - [5. Run Llama Model](#5-run-llama-model)
+  - [6. Explore](#6-explore)
+  - [](#)
+- [Llama Models](#llama-models)
+  - [Llama Models](#llama-models-1)
+  - [Download](#download)
+  - [Running the models](#running-the-models)
+  - [Access to Hugging Face](#access-to-hugging-face)
+  - [Installations](#installations)
+  - [Responsible Use](#responsible-use)
+  - [Issues](#issues)
+  - [Questions](#questions)
+
+## 1. Set up Cloudlab
+
+- Profile: OpenStack
+- Number of computer nodes: 0
+- Hardware type(a GPU with at least 20GB RAM is required)
+- Hardware type Example: Cloudlab Wisconsin->d7525 (For Q1, take a screenshot)
+
+![GPUlist](figures/Screenshot_GPUlist.png)
+
+![cloudlab](figures/Screenshot_cloudlab.png)
+
+## 2. Request Access to Llama Models
+
+
+- Llama: Download models https://llama.meta.com/
+- You will get an email when you finish your request.
+
+
+![Llama](figures/Screenshot_Llama.png)
+
+![request](figures/Screenshot_request.png)
+
+![email](figures/Screenshot_email.png)
+
+## 3. Download the Llama Model
+
+
+- Follow the download instruction: https://github.com/meta-llama/llama-models
+- Remember your download path. Example '/users/ylpan/.llama/checkpoints/Llama3.1-8B-Instruct'
+
+```bash
+pip install llama-toolchain
+
+llama model list --show-all
+# if llama: command not found, use the full path. Example:'/users/ylpan/.local/bin/llama model list --show-all'
+# For Q2, take a screenshot
+
+llama download --source meta --model-id Llama3.1-8B-Instruct
+# We choose Llama3.1-8b-instruct
+# For Q3, take a screenshot
+
+# if llama: command not found, use the full path. Example:'/users/ylpan/.local/bin/llama download --source meta --model-id Llama3.1-8B-Instruct'
+
+# Provide the signed URL you received via email
+```
+
+![Download](Screenshot_download.png)
+
+![pip](Screenshot_pip.png)
+
+![modellist](Screenshot_modellist.png)
+
+![done](Screenshot_done.png)
+
+## 4. Install GPU Driver
+
+- Check your Cloudlab hardware again. At least d7525(A30 with RAM 24 GB) is recommended.
+- NVIDIA drivers installation https://ubuntu.com/server/docs/nvidia-drivers-installation
+- Your system need some time to reboot.
+
+```bash
+sudo apt install ubuntu-drivers-common
+
+sudo ubuntu-drivers list
+# check if ubuntu-drivers install successfully
+
+sudo ubuntu-drivers install
+
+sudo reboot
+# reboot the system after ubuntu-drivers install
+# you will loss connection and this step need some time
+
+# After reboot, reconnect with your system and check if NVIDIA drivers install successfully or not
+nvidia-smi
+# if error: NVIDIA-SMI has failed because it couldn't communicate with the NVIDIA driver. Make sure that the latest NVIDIA driver is installed and running. Try to repeat the above steps
+# For Q4, take a screenshot
+```
+
+![hardware](Screenshot_hardware.png)
+
+![usage](Screenshot_usage.png)
+
+## 5. Run Llama Model
+
+- Obtain the scripts from Llama github
+- Follow the **Running the models** section https://github.com/meta-llama/llama-models
+- Prepare python environment
+- Run an example
+- Three conversations from example scripts will show up if you run the example successfully.
+
+```bash
+git clone https://github.com/meta-llama/llama-models.git
+
+cd llama-models/
+
+pip install -r requirements.txt 
+
+pip install torch fairscale fire blobfile
+
+nano run_example.sh
+```
+
+```bash
+#!/bin/bash
+
+CHECKPOINT_DIR=~/.llama/checkpoints/Meta-Llama3.1-8B-Instruct
+PYTHONPATH=$(git rev-parse --show-toplevel) torchrun models/scripts/example_chat_completion.py $CHECKPOINT_DIR
+```
+
+```bash
+chmod +x ./run_example.sh
+
+./run_example.sh
+
+# For Q5, take three screenshots.
+```
+
+
+![running](Screenshot_running.png)
+
+![example1](Screenshot_example1.png)
+
+![example2](Screenshot_example2.png)
+
+![example3](Screenshot_example3.png)
+
+## 6. Explore
+
+- Install the python packages
+- Explore the model you download
+- Read and run the python file first
+- Modify the python file to answer Q6-10
+
+```bash
+pip install sentencepiece tiktoken torch blobfile matplotlib
+# Install the python packages
+
+nano AMS560_HW2.py
+# create a python file
+python AMS560_HW2.py
+# run it
+```
+This is your example python file. Read and run this first. Then finish your Q6-10 by modifying this.
+
+```python
+from pathlib import Path
+import tiktoken
+from tiktoken.load import load_tiktoken_bpe
+import torch
+import json
+import matplotlib.pyplot as plt
+
+path = "..."
+# modify the path first (the path from Q3)
+# For Q6, explore this path
+# For Q7, explore 'params.json' file
+
+tokenizer_path = path + "/tokenizer.model"
+special_tokens = [
+            "<|begin_of_text|>",
+            "<|end_of_text|>",
+            "<|reserved_special_token_0|>",
+            "<|reserved_special_token_1|>",
+            "<|reserved_special_token_2|>",
+            "<|reserved_special_token_3|>",
+            "<|start_header_id|>",
+            "<|end_header_id|>",
+            "<|reserved_special_token_4|>",
+            "<|eot_id|>",  # end of turn
+        ] + [f"<|reserved_special_token_{i}|>" for i in range(5, 256 - 5)]
+mergeable_ranks = load_tiktoken_bpe(tokenizer_path)
+tokenizer = tiktoken.Encoding(
+    name=Path(tokenizer_path).name,
+    pat_str=r"(?i:'s|'t|'re|'ve|'m|'ll|'d)|[^\r\n\p{L}\p{N}]?\p{L}+|\p{N}{1,3}| ?[^\s\p{L}\p{N}]+[\r\n]*|\s*[\r\n]+|\s+(?!\S)|\s+",
+    mergeable_ranks=mergeable_ranks,
+    special_tokens={token: len(mergeable_ranks) + i for i, token in enumerate(special_tokens)},
+)
+
+print(tokenizer.decode(tokenizer.encode("hello world!")))
+# For Q8, print the tokenizer.encode() output
+
+model = torch.load(path+"/consolidated.00.pth", weights_only=True)
+print('This is the first 20 matrices weights:')
+print(json.dumps(list(model.keys())[:20], indent=4))
+# This show the first 20 matrices weights. 
+# For Q9, show last 5 or them all.
+
+print('This is the shape for feed forward weight W_2 of layer 0, ')
+print(model["layers.0.feed_forward.w2.weight"].shape)
+# For Q10, print the shape for attention W_o of layer 21.
+```
+
+![explore](Screenshot_explore1.png)
 ---
 
 # Llama Models
